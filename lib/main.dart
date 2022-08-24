@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:random_cocktail_app/api_service/random_cocktail_api.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 
 void main() {
@@ -14,14 +16,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
       ),
-      home: const MyHomePage(
-        title: 'Random Cocktail',
+      home: const ProviderScope(
+        child: MyHomePage(
+          title: 'Random Cocktail',
+        ),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({
     Key? key,
     required this.title,
@@ -30,13 +34,13 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  _incrementCounter() {
     setState(() {
       _counter++;
     });
@@ -50,23 +54,34 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child: Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            final drink = ref.watch(randomDrink);
+            return drink.when(
+                data: ((data) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TextButton(
+                          onPressed: (() {
+                            setState(() {
+                              _incrementCounter();
+                              ref.refresh(randomDrink);
+                            });
+                          }),
+                          child:
+                              const Text("Bartender bring me random drink!")),
+                      Text(data.randomCocktail[0].drinkName),
+                      Text(data.randomCocktail[0].category),
+                      Text(data.randomCocktail[0].glass),
+                      Text(data.randomCocktail[0].instructions),
+                    ],
+                  );
+                }),
+                error: (e, stack) => Text('$e'),
+                loading: () => const CircularProgressIndicator());
+          },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
