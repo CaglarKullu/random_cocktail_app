@@ -25,6 +25,8 @@ class CocktailDetail extends StatefulWidget {
 class _CocktailDetailState extends State<CocktailDetail> {
   @override
   Widget build(BuildContext context) {
+    List<Ingredient> ingredientList = widget.ingredientList;
+    ingredientList.removeWhere((element) => element.ingredientName == null);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -41,18 +43,16 @@ class _CocktailDetailState extends State<CocktailDetail> {
             child: FittedBox(child: Image.network(widget.drinkThumb))),
         Text(widget.category),
         Text(widget.glass),
-        Text(widget.instructions),
         ListView.builder(
             shrinkWrap: true,
-            itemCount: widget.ingredientList.length,
+            itemCount: ingredientList.length,
             itemBuilder: ((context, index) {
               return ListTile(
-                leading:
-                    Text(widget.ingredientList[index].ingredientName ?? ""),
-                trailing:
-                    Text(widget.ingredientList[index].ingredientmeasure ?? ""),
+                leading: Text(ingredientList[index].ingredientName!),
+                trailing: Text(ingredientList[index].ingredientmeasure!),
               );
-            }))
+            })),
+        Text(widget.instructions),
       ],
     );
   }

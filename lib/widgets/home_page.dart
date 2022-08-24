@@ -19,7 +19,7 @@ class MyHomePage extends ConsumerStatefulWidget {
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   int _counter = 0;
-
+  bool isB52 = false;
   _incrementCounter() {
     setState(() {
       _counter++;
@@ -47,6 +47,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                             setState(() {
                               _incrementCounter();
                               ref.refresh(randomDrink);
+                              if (_counter == 52) {
+                                isB52 = true;
+                              }
                             });
                           }),
                           child:
