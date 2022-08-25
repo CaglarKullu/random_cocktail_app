@@ -54,7 +54,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                               if (_counter > 52) {
                                 isB52 = false;
                               }
-                              print(isB52);
                             });
                           }),
                           child:

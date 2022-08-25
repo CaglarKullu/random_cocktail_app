@@ -46,19 +46,20 @@ class _CocktailDetailState extends State<CocktailDetail> {
           //Text(widget.category),
           //Text(widget.glass),
           Row(
-            children: [
-              const Text(
+            children: const [
+              Text(
                 "Ingredient Name",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              const Spacer(),
-              const Text(
+              Spacer(),
+              Text(
                 "Ingredient Measure",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ],
           ),
           ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: ingredientList.length,
               itemBuilder: ((context, index) {
@@ -71,7 +72,7 @@ class _CocktailDetailState extends State<CocktailDetail> {
             "Instructions",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
