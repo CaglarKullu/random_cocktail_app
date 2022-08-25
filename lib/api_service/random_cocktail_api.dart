@@ -31,5 +31,5 @@ Future<ListOfRandomCocktail> fetchB52() async {
 }
 
 final fetchDrinkB52 = FutureProvider<ListOfRandomCocktail>((ref) async {
-  return fetchRandomDrink();
+  return fetchB52();
 });

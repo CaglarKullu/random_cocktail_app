@@ -36,7 +36,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       body: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final drink = ref.watch(randomDrink);
+            final drink =
+                isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
             return drink.when(
                 data: ((data) {
                   return Column(
@@ -47,9 +48,13 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                             setState(() {
                               _incrementCounter();
                               ref.refresh(randomDrink);
-                              if (_counter == 3) {
+                              if (_counter == 52) {
                                 isB52 = true;
                               }
+                              if (_counter > 52) {
+                                isB52 = false;
+                              }
+                              print(isB52);
                             });
                           }),
                           child:
