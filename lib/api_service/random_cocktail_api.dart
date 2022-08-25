@@ -21,7 +21,7 @@ final randomDrink = FutureProvider<ListOfRandomCocktail>((ref) async {
 
 Future<ListOfRandomCocktail> fetchB52() async {
   final response = await http.get(Uri.parse(
-      'http://https://www.thecocktaildb.com/api/json/v1/1/search.php?s=B-52'));
+      'http://www.thecocktaildb.com/api/json/v1/1/search.php?s=B-52'));
 
   if (response.statusCode == 200) {
     return ListOfRandomCocktail.fromJson(jsonDecode(response.body));

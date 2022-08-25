@@ -47,14 +47,14 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                             setState(() {
                               _incrementCounter();
                               ref.refresh(randomDrink);
-                              if (_counter == 52) {
+                              if (_counter == 3) {
                                 isB52 = true;
                               }
                             });
                           }),
                           child:
                               const Text("Bartender bring me random drink!")),
-                      Flexible(
+                      Expanded(
                         flex: 1,
                         child: SingleChildScrollView(
                           child: CocktailDetail(
