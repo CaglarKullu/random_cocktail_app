@@ -7,4 +7,4 @@ In this project https://www.thecocktaildb.com/api.php Restful Api has been used.
 ## Screen shots 
 
 
-![Screenshot_1]<img src="assets\screenshot_1.png" width=200 height=500>
+<img src="assets\screenshot_1.png" width=200 height=400>
