@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/widgets/home_page.dart';
+import 'package:random_cocktail_app/widgets/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -17,9 +21,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: backgroundColor,
       ),
       home: const ProviderScope(
-        child: MyHomePage(
-          title: 'Random Cocktail',
-        ),
+        child: LogInScreen(),
       ),
     );
   }
