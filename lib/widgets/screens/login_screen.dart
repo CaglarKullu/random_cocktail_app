@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:random_cocktail_app/data/google_sign_in.dart';
 import 'dart:developer' as developer;
-
-import 'package:random_cocktail_app/widgets/google_sign_in.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -100,7 +99,6 @@ class _LogInScreenState extends State<LogInScreen>
                             onPressed: (() => setState(() {
                                   isSelected = !isSelected;
                                   isSelected ? animateColor() : reverseColor();
-
                                   googleSignIn.googleLogIn();
                                 })),
                             label: const Text("Sign up with Google"),
