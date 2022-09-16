@@ -5,8 +5,8 @@ import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 import 'package:random_cocktail_app/widgets/cocktail_detail.dart';
 
-class MyHomePage extends ConsumerStatefulWidget {
-  const MyHomePage({
+class LogedInScreen extends ConsumerStatefulWidget {
+  const LogedInScreen({
     Key? key,
     required this.title,
   }) : super(key: key);
@@ -14,10 +14,10 @@ class MyHomePage extends ConsumerStatefulWidget {
   final String title;
 
   @override
-  ConsumerState<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<LogedInScreen> createState() => _LogedInScreenState();
 }
 
-class _MyHomePageState extends ConsumerState<MyHomePage> {
+class _LogedInScreenState extends ConsumerState<LogedInScreen> {
   int _counter = 0;
   bool isB52 = false;
   _incrementCounter() {
