@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:random_cocktail_app/data/google_sign_in.dart';
+import 'package:random_cocktail_app/data/auth.dart';
+
 import 'dart:developer' as developer;
 
 class LogInScreen extends StatefulWidget {
@@ -91,18 +92,41 @@ class _LogInScreenState extends State<LogInScreen>
                     return Consumer(
                       builder:
                           (BuildContext context, WidgetRef ref, Widget? child) {
-                        final googleSignIn = ref.watch(googleSignInProvider);
-                        return ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                                primary: signUpButBackgroudColor,
-                                onPrimary: signUpButTextColor),
-                            onPressed: (() => setState(() {
-                                  isSelected = !isSelected;
-                                  isSelected ? animateColor() : reverseColor();
-                                  googleSignIn.googleLogIn();
-                                })),
-                            label: const Text("Sign up with Google"),
-                            icon: const Icon(FontAwesome.google));
+                        final signIn = ref.watch(authProvider);
+                        return Column(
+                          children: [
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: signUpButTextColor,
+                                  backgroundColor: signUpButBackgroudColor),
+                              onPressed: (() => setState(() {
+                                    isSelected = !isSelected;
+                                    isSelected
+                                        ? animateColor()
+                                        : reverseColor();
+                                    signIn.googleLogIn();
+                                  })),
+                              label: const Text("Sign up with Google"),
+                              icon: const Icon(FontAwesome5.google),
+                            ),
+                            SizedBox(
+                              width: 150,
+                              child: ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                      foregroundColor: signUpButTextColor,
+                                      backgroundColor: signUpButBackgroudColor),
+                                  onPressed: (() => setState(() {
+                                        isSelected = !isSelected;
+                                        isSelected
+                                            ? animateColor()
+                                            : reverseColor();
+                                        signIn.signInAnon();
+                                      })),
+                                  label: const Text("Sign in Anonymously"),
+                                  icon: const Icon(FontAwesome5.mask)),
+                            ),
+                          ],
+                        );
                       },
                     );
                   },
