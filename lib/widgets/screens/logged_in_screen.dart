@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
-import 'package:random_cocktail_app/data/google_sign_in.dart';
+import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 import 'package:random_cocktail_app/widgets/cocktail_detail.dart';
 
@@ -33,18 +33,14 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
     final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(user!.photoURL!),
-          ),
-        ),
         actions: [
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              final googleSignIn = ref.read(googleSignInProvider);
+              final signIn = ref.read(authProvider);
               return TextButton(
-                  onPressed: () => googleSignIn.logout(),
+                  onPressed: () => user!.isAnonymous
+                      ? signIn.anonLogout()
+                      : signIn.googleLogout(),
                   child: const Text("Log Out"));
             },
           )
