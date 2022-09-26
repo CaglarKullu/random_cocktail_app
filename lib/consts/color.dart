@@ -6,3 +6,5 @@ const signUpButBackgroudColor = Colors.white;
 const signUpButTextColor = Colors.deepOrange;
 const glassColorBegin = Colors.white;
 const glassColorEnd = Colors.pink;
+const selectedNavItemColor = Colors.green;
+const supriseButtonColor = Colors.green;

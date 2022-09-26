@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:random_cocktail_app/data/auth.dart';

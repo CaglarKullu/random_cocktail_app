@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
+
 import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
+import 'package:random_cocktail_app/widgets/bottom_navigation_bar.dart';
 import 'package:random_cocktail_app/widgets/cocktail_detail.dart';
 
 class LogedInScreen extends ConsumerStatefulWidget {
@@ -58,21 +60,32 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      TextButton(
-                          onPressed: (() {
-                            setState(() {
-                              _incrementCounter();
-                              ref.refresh(randomDrink);
-                              if (_counter == 52) {
-                                isB52 = true;
-                              }
-                              if (_counter > 52) {
-                                isB52 = false;
-                              }
-                            });
-                          }),
-                          child:
-                              const Text("Bartender bring me random drink!")),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            color: supriseButtonColor,
+                            child: TextButton(
+                                onPressed: (() {
+                                  setState(() {
+                                    _incrementCounter();
+                                    ref.refresh(randomDrink);
+                                    if (_counter == 52) {
+                                      isB52 = true;
+                                    }
+                                    if (_counter > 52) {
+                                      isB52 = false;
+                                    }
+                                  });
+                                }),
+                                child: const Text(
+                                  "Surprise me!",
+                                  style: TextStyle(color: glassColorBegin),
+                                )),
+                          ),
+                        ),
+                      ),
                       Expanded(
                         flex: 1,
                         child: SingleChildScrollView(
@@ -168,6 +181,9 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                 loading: () => const CircularProgressIndicator());
           },
         ),
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        selectedIndex: 0,
       ),
     );
   }
