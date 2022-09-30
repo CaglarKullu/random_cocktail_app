@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:random_cocktail_app/widgets/screens/logged_in_screen.dart';
+import 'package:random_cocktail_app/widgets/bottom_navigation_bar.dart';
 import 'package:random_cocktail_app/widgets/screens/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData) {
-            return const LogedInScreen(title: "Random Cocktail App");
+            return const CustomNavigationBar();
           } else if (snapshot.hasError) {
             return const Center(
               child: Text("Oops something went wrong"),

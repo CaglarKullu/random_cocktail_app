@@ -6,7 +6,6 @@ import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
 
 import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
-import 'package:random_cocktail_app/widgets/bottom_navigation_bar.dart';
 import 'package:random_cocktail_app/widgets/cocktail_detail.dart';
 
 class LogedInScreen extends ConsumerStatefulWidget {
@@ -181,9 +180,6 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                 loading: () => const CircularProgressIndicator());
           },
         ),
-      ),
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 0,
       ),
     );
   }
