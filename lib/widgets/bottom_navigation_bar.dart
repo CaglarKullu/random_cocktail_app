@@ -34,7 +34,9 @@ class _CustomNavigationBarState extends ConsumerState<CustomNavigationBar> {
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: BottomNavigationBar(
+            backgroundColor: menuBackgroundColor,
             showSelectedLabels: false,
+            showUnselectedLabels: false,
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
             selectedItemColor: selectedNavItemColor,
@@ -49,7 +51,7 @@ class _CustomNavigationBarState extends ConsumerState<CustomNavigationBar> {
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.grey.shade800,
                     boxShadow: [
-                      BoxShadow(
+                      const BoxShadow(
                         color: Colors.black,
                         offset: Offset(5, 5),
                         blurRadius: 10,
@@ -57,14 +59,14 @@ class _CustomNavigationBarState extends ConsumerState<CustomNavigationBar> {
                       ),
                       BoxShadow(
                         color: Colors.grey.shade600,
-                        offset: Offset(-4, -4),
+                        offset: const Offset(-4, -4),
                         blurRadius: 10,
                         spreadRadius: 0.5,
                       ),
                     ],
                   ),
                   child: Column(
-                    children: [
+                    children: const [
                       Icon(
                         FontAwesome5.cocktail,
                       ),
@@ -73,7 +75,7 @@ class _CustomNavigationBarState extends ConsumerState<CustomNavigationBar> {
                   ),
                 ),
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                   icon: Icon(Icons.favorite), label: "My Favorite"),
             ]),
       ),
