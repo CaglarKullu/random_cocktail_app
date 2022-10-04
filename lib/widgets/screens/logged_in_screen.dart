@@ -7,6 +7,7 @@ import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
 import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 import 'package:random_cocktail_app/widgets/cocktail_detail.dart';
+import 'package:random_cocktail_app/widgets/custom_fab.dart';
 
 class LogedInScreen extends ConsumerStatefulWidget {
   const LogedInScreen({
@@ -29,20 +30,35 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
     });
   }
 
+  void _refreshRamdomDrink() => setState(() {
+        ref.refresh(randomDrink);
+        if (_counter == 52) {
+          isB52 = true;
+        }
+        if (_counter > 52) {
+          isB52 = false;
+        }
+      });
+
+  bool isButtonOneSelected = false;
+  bool isButtonTwoSelected = false;
   @override
   Widget build(BuildContext context) {
+    final drink = isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
     final user = FirebaseAuth.instance.currentUser;
+    final signIn = ref.read(authProvider);
     return Scaffold(
       appBar: AppBar(
         actions: [
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              final signIn = ref.read(authProvider);
               return TextButton(
                   onPressed: () => user!.isAnonymous
                       ? signIn.anonLogout()
                       : signIn.googleLogout(),
-                  child: const Text("Log Out"));
+                  child: user!.isAnonymous
+                      ? const SizedBox()
+                      : const Text("Log Out"));
             },
           )
         ],
@@ -52,39 +68,11 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
       body: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final drink =
-                isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
             return drink.when(
                 data: ((data) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            color: supriseButtonColor,
-                            child: TextButton(
-                                onPressed: (() {
-                                  setState(() {
-                                    _incrementCounter();
-                                    ref.refresh(randomDrink);
-                                    if (_counter == 52) {
-                                      isB52 = true;
-                                    }
-                                    if (_counter > 52) {
-                                      isB52 = false;
-                                    }
-                                  });
-                                }),
-                                child: const Text(
-                                  "Surprise me!",
-                                  style: TextStyle(color: glassColorBegin),
-                                )),
-                          ),
-                        ),
-                      ),
                       Expanded(
                         flex: 1,
                         child: SingleChildScrollView(
@@ -179,6 +167,38 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                 error: (e, stack) => Text('$e'),
                 loading: () => const CircularProgressIndicator());
           },
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomFab(
+              onPressed: () {
+                setState(() {
+                  isButtonOneSelected = true;
+                  isButtonTwoSelected = false;
+                  _incrementCounter();
+                  _refreshRamdomDrink();
+                });
+              },
+              buttonText: "Surprise me!",
+              isButtonSelected: isButtonOneSelected,
+            ),
+            CustomFab(
+                onPressed: () {
+                  setState(() {
+                    setState(() {
+                      isButtonOneSelected = false;
+                      isButtonTwoSelected = true;
+                    });
+                  });
+                },
+                buttonText: "My Favorites",
+                isButtonSelected: isButtonTwoSelected),
+          ],
         ),
       ),
     );

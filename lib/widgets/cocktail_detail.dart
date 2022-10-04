@@ -79,6 +79,9 @@ class _CocktailDetailState extends State<CocktailDetail> {
             widget.instructions,
             textAlign: TextAlign.justify,
           ),
+          const SizedBox(
+            height: 60,
+          ),
         ],
       ),
     );

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,8 +7,7 @@ import 'package:random_cocktail_app/data/auth.dart';
 
 // ignore: must_be_immutable
 class BuildLogInButtons extends StatefulWidget {
-  // ignore: prefer_typing_uninitialized_variables
-  var deviceSize;
+  Size deviceSize;
   BuildLogInButtons({required this.deviceSize, super.key});
 
   @override
