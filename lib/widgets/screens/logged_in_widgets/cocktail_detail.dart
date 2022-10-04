@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_cocktail_app/consts/text_style.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 
 class CocktailDetail extends StatefulWidget {
@@ -34,7 +35,7 @@ class _CocktailDetailState extends State<CocktailDetail> {
         children: [
           Text(
             widget.drinkName,
-            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: titleTextStyle,
           ),
           const SizedBox(
             height: 10,
@@ -46,16 +47,12 @@ class _CocktailDetailState extends State<CocktailDetail> {
           //Text(widget.category),
           //Text(widget.glass),
           Row(
-            children: const [
+            children: [
               Text(
-                "Ingredient Name",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                "Ingredients",
+                style: titleTextStyle,
               ),
-              Spacer(),
-              Text(
-                "Ingredient Measure",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+              const Spacer(),
             ],
           ),
           ListView.builder(
@@ -64,13 +61,19 @@ class _CocktailDetailState extends State<CocktailDetail> {
               itemCount: ingredientList.length,
               itemBuilder: ((context, index) {
                 return ListTile(
-                  leading: Text(ingredientList[index].ingredientName!),
-                  trailing: Text(ingredientList[index].ingredientmeasure ?? ""),
+                  leading: Text(
+                    ingredientList[index].ingredientName!,
+                    style: textStyle,
+                  ),
+                  trailing: Text(
+                    ingredientList[index].ingredientmeasure ?? "",
+                    style: textStyle,
+                  ),
                 );
               })),
-          const Text(
+          Text(
             "Instructions",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: titleTextStyle,
           ),
           const SizedBox(
             height: 10,
@@ -78,6 +81,7 @@ class _CocktailDetailState extends State<CocktailDetail> {
           Text(
             widget.instructions,
             textAlign: TextAlign.justify,
+            style: textStyle,
           ),
           const SizedBox(
             height: 60,

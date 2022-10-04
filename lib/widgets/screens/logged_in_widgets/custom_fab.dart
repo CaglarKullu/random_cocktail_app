@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_cocktail_app/consts/color.dart';
+import 'package:random_cocktail_app/consts/text_style.dart';
 
 class CustomFab extends StatelessWidget {
   const CustomFab({

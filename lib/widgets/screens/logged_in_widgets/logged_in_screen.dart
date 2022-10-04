@@ -6,8 +6,8 @@ import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
 
 import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
-import 'package:random_cocktail_app/widgets/cocktail_detail.dart';
-import 'package:random_cocktail_app/widgets/custom_fab.dart';
+import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/cocktail_detail.dart';
+import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/custom_fab.dart';
 
 class LogedInScreen extends ConsumerStatefulWidget {
   const LogedInScreen({
