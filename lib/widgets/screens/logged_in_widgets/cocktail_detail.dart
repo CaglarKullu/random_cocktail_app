@@ -40,19 +40,21 @@ class _CocktailDetailState extends State<CocktailDetail> {
           const SizedBox(
             height: 10,
           ),
-          SizedBox(
+          /*SizedBox(
               height: MediaQuery.of(context).size.height / 3,
               width: MediaQuery.of(context).size.height * 0.75,
               child: FittedBox(child: Image.network(widget.drinkThumb))),
-          //Text(widget.category),
-          //Text(widget.glass),
+          Text(widget.category),
+          Text(widget.glass), */
           Row(
             children: [
-              Text(
-                "Ingredients",
-                style: titleTextStyle,
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: Text(
+                  "Ingredients",
+                  style: titleTextStyle,
+                ),
               ),
-              const Spacer(),
             ],
           ),
           ListView.builder(
