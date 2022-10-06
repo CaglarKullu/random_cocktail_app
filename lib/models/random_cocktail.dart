@@ -122,4 +122,43 @@ class RandomCocktail {
         strMeasure14: json["strMeasure14"],
         strMeasure15: json["strMeasure15"],
       );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idDrink'] = idDrink;
+    data['strDrink'] = drinkName;
+    data['strCategory'] = category;
+    data['strGlass'] = glass;
+    data['strDrinkThumb'] = drinkThumb;
+    data['strIngredient1'] = strIngredient1;
+    data['strIngredient2'] = strIngredient2;
+    data['strIngredient3'] = strIngredient3;
+    data['strIngredient4'] = strIngredient4;
+    data['strIngredient5'] = strIngredient5;
+    data['strIngredient6'] = strIngredient6;
+    data['strIngredient7'] = strIngredient7;
+    data['strIngredient8'] = strIngredient8;
+    data['strIngredient9'] = strIngredient9;
+    data['strIngredient10'] = strIngredient10;
+    data['strIngredient11'] = strIngredient11;
+    data['strIngredient12'] = strIngredient12;
+    data['strIngredient13'] = strIngredient13;
+    data['strIngredient14'] = strIngredient14;
+    data['strIngredient15'] = strIngredient15;
+    data['strMeasure1'] = strMeasure1;
+    data['strMeasure2'] = strMeasure2;
+    data['strMeasure3'] = strMeasure3;
+    data['strMeasure4'] = strMeasure4;
+    data['strMeasure5'] = strMeasure5;
+    data['strMeasure6'] = strMeasure6;
+    data['strMeasure7'] = strMeasure7;
+    data['strMeasure8'] = strMeasure8;
+    data['strMeasure9'] = strMeasure9;
+    data['strMeasure10'] = strMeasure10;
+    data['strMeasure11'] = strMeasure11;
+    data['strMeasure12'] = strMeasure12;
+    data['strMeasure13'] = strMeasure13;
+    data['strMeasure14'] = strMeasure14;
+    data['strMeasure15'] = strMeasure15;
+    return data;
+  }
 }

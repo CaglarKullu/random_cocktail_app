@@ -1,11 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
 
 import 'package:random_cocktail_app/data/auth.dart';
+import 'package:random_cocktail_app/data/database.dart';
+
 import 'package:random_cocktail_app/models/ingredients.dart';
+import 'package:random_cocktail_app/models/random_cocktail.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/cocktail_detail.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/custom_fab.dart';
 
@@ -47,6 +51,8 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
     final drink = isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
     final user = FirebaseAuth.instance.currentUser;
     final signIn = ref.read(authProvider);
+    final dbHelp = ref.read(db);
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -193,6 +199,18 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                     setState(() {
                       isButtonOneSelected = false;
                       isButtonTwoSelected = true;
+
+                      //ref.read(addUser(user!.uid));
+                      //ref.read(createUser);
+                      dbHelp
+                          .whenData((value) => value.addFavorite(RandomCocktail(
+                                drinkName: "drinkName",
+                                drinkThumb: "drinkThumb",
+                                instructions: "instructions",
+                                category: "category",
+                                glass: "glass",
+                                idDrink: 0,
+                              )));
                     });
                   });
                 },
