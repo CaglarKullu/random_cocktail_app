@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
 
 import 'package:random_cocktail_app/data/auth.dart';
@@ -80,6 +79,7 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
             return drink.when(
                 data: ((data) {
                   var info = data.randomCocktail[0];
+
                   return NestedScrollView(
                     controller: controllerOne,
                     headerSliverBuilder:
@@ -99,54 +99,6 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                                 image: NetworkImage(
                                     data.randomCocktail[0].drinkThumb)),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: IconButton(
-                              iconSize: 30,
-                              icon: const Icon(Icons.favorite_border_rounded),
-                              onPressed: (() {
-                                dbHelp.whenData(
-                                    (value) => value.addFavorite(RandomCocktail(
-                                          drinkName: info.drinkName,
-                                          drinkThumb: info.drinkThumb,
-                                          idDrink: info.idDrink,
-                                          instructions: info.instructions,
-                                          category: info.category,
-                                          glass: info.glass,
-                                          strIngredient1: info.strIngredient1,
-                                          strIngredient2: info.strIngredient2,
-                                          strIngredient3: info.strIngredient3,
-                                          strIngredient4: info.strIngredient4,
-                                          strIngredient5: info.strIngredient5,
-                                          strIngredient6: info.strIngredient6,
-                                          strIngredient7: info.strIngredient7,
-                                          strIngredient8: info.strIngredient8,
-                                          strIngredient9: info.strIngredient9,
-                                          strIngredient10: info.strIngredient10,
-                                          strIngredient11: info.strIngredient11,
-                                          strIngredient12: info.strIngredient12,
-                                          strIngredient13: info.strIngredient13,
-                                          strIngredient14: info.strIngredient14,
-                                          strIngredient15: info.strIngredient15,
-                                          strMeasure1: info.strMeasure1,
-                                          strMeasure2: info.strMeasure2,
-                                          strMeasure3: info.strMeasure3,
-                                          strMeasure4: info.strMeasure4,
-                                          strMeasure5: info.strMeasure5,
-                                          strMeasure6: info.strMeasure6,
-                                          strMeasure7: info.strMeasure7,
-                                          strMeasure8: info.strMeasure8,
-                                          strMeasure9: info.strMeasure9,
-                                          strMeasure10: info.strIngredient10,
-                                          strMeasure11: info.strIngredient11,
-                                          strMeasure12: info.strMeasure12,
-                                          strMeasure13: info.strMeasure13,
-                                          strMeasure14: info.strIngredient14,
-                                          strMeasure15: info.strMeasure15,
-                                        )));
-                              }),
-                            ),
-                          ),
                         ),
                       )
                     ],
@@ -164,90 +116,108 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                               controller: controllerOne,
                               child: SingleChildScrollView(
                                 child: CocktailDetail(
+                                    onPressed: (() {
+                                      dbHelp.whenData((value) =>
+                                          value.addFavorite(RandomCocktail(
+                                            drinkName: info.drinkName,
+                                            drinkThumb: info.drinkThumb,
+                                            idDrink: info.idDrink,
+                                            instructions: info.instructions,
+                                            category: info.category,
+                                            glass: info.glass,
+                                            strIngredient1: info.strIngredient1,
+                                            strIngredient2: info.strIngredient2,
+                                            strIngredient3: info.strIngredient3,
+                                            strIngredient4: info.strIngredient4,
+                                            strIngredient5: info.strIngredient5,
+                                            strIngredient6: info.strIngredient6,
+                                            strIngredient7: info.strIngredient7,
+                                            strIngredient8: info.strIngredient8,
+                                            strIngredient9: info.strIngredient9,
+                                            strIngredient10:
+                                                info.strIngredient10,
+                                            strIngredient11:
+                                                info.strIngredient11,
+                                            strIngredient12:
+                                                info.strIngredient12,
+                                            strIngredient13:
+                                                info.strIngredient13,
+                                            strIngredient14:
+                                                info.strIngredient14,
+                                            strIngredient15:
+                                                info.strIngredient15,
+                                            strMeasure1: info.strMeasure1,
+                                            strMeasure2: info.strMeasure2,
+                                            strMeasure3: info.strMeasure3,
+                                            strMeasure4: info.strMeasure4,
+                                            strMeasure5: info.strMeasure5,
+                                            strMeasure6: info.strMeasure6,
+                                            strMeasure7: info.strMeasure7,
+                                            strMeasure8: info.strMeasure8,
+                                            strMeasure9: info.strMeasure9,
+                                            strMeasure10: info.strIngredient10,
+                                            strMeasure11: info.strIngredient11,
+                                            strMeasure12: info.strMeasure12,
+                                            strMeasure13: info.strMeasure13,
+                                            strMeasure14: info.strIngredient14,
+                                            strMeasure15: info.strMeasure15,
+                                          )));
+                                    }),
                                     ingredientList: [
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient1,
+                                          ingredientName: info.strIngredient1,
                                           ingredientmeasure: data
                                               .randomCocktail[0].strMeasure1),
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient2,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure2),
+                                          ingredientName: info.strIngredient2,
+                                          ingredientmeasure: info.strMeasure2),
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient3,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure3),
+                                          ingredientName: info.strIngredient3,
+                                          ingredientmeasure: info.strMeasure3),
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient4,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure4),
+                                          ingredientName: info.strIngredient4,
+                                          ingredientmeasure: info.strMeasure4),
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient5,
+                                          ingredientName: info.strIngredient5,
                                           ingredientmeasure: data
                                               .randomCocktail[0].strMeasure5),
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient6,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure6),
+                                          ingredientName: info.strIngredient6,
+                                          ingredientmeasure: info.strMeasure6),
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient7,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure7),
+                                          ingredientName: info.strIngredient7,
+                                          ingredientmeasure: info.strMeasure7),
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient8,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure8),
+                                          ingredientName: info.strIngredient8,
+                                          ingredientmeasure: info.strMeasure8),
                                       Ingredient(
-                                          ingredientName: data
-                                              .randomCocktail[0].strIngredient9,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure9),
+                                          ingredientName: info.strIngredient9,
+                                          ingredientmeasure: info.strMeasure9),
                                       Ingredient(
-                                          ingredientName: data.randomCocktail[0]
-                                              .strIngredient10,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure10),
+                                          ingredientName: info.strIngredient10,
+                                          ingredientmeasure: info.strMeasure10),
                                       Ingredient(
-                                          ingredientName: data.randomCocktail[0]
-                                              .strIngredient11,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure11),
+                                          ingredientName: info.strIngredient11,
+                                          ingredientmeasure: info.strMeasure11),
                                       Ingredient(
-                                          ingredientName: data.randomCocktail[0]
-                                              .strIngredient12,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure12),
+                                          ingredientName: info.strIngredient12,
+                                          ingredientmeasure: info.strMeasure12),
                                       Ingredient(
-                                          ingredientName: data.randomCocktail[0]
-                                              .strIngredient13,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure13),
+                                          ingredientName: info.strIngredient13,
+                                          ingredientmeasure: info.strMeasure13),
                                       Ingredient(
-                                          ingredientName: data.randomCocktail[0]
-                                              .strIngredient14,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure14),
+                                          ingredientName: info.strIngredient14,
+                                          ingredientmeasure: info.strMeasure14),
                                       Ingredient(
-                                          ingredientName: data.randomCocktail[0]
-                                              .strIngredient15,
-                                          ingredientmeasure: data
-                                              .randomCocktail[0].strMeasure15),
+                                          ingredientName: info.strIngredient15,
+                                          ingredientmeasure: info.strMeasure15),
                                     ],
-                                    drinkName: data.randomCocktail[0].drinkName,
-                                    drinkThumb:
-                                        data.randomCocktail[0].drinkThumb,
-                                    instructions:
-                                        data.randomCocktail[0].instructions,
-                                    category: data.randomCocktail[0].category,
-                                    glass: data.randomCocktail[0].glass),
+                                    drinkId: info.idDrink,
+                                    drinkName: info.drinkName,
+                                    drinkThumb: info.drinkThumb,
+                                    instructions: info.instructions,
+                                    category: info.category,
+                                    glass: info.glass),
                               ),
                             ),
                           ),

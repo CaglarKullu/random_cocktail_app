@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_cocktail_app/consts/text_style.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 
-class CocktailDetail extends StatefulWidget {
+class CocktailDetail extends ConsumerStatefulWidget {
   final String drinkName;
+  final int drinkId;
   final String drinkThumb;
   final String instructions;
   final String category;
   final String glass;
   final List<Ingredient> ingredientList;
+  final VoidCallback? onPressed;
+
   const CocktailDetail(
       {Key? key,
+      required this.onPressed,
+      required this.drinkId,
       required this.ingredientList,
       required this.drinkName,
       required this.drinkThumb,
@@ -20,32 +26,43 @@ class CocktailDetail extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<CocktailDetail> createState() => _CocktailDetailState();
+  ConsumerState<CocktailDetail> createState() => _CocktailDetailState();
 }
 
-class _CocktailDetailState extends State<CocktailDetail> {
+class _CocktailDetailState extends ConsumerState<CocktailDetail> {
   @override
   Widget build(BuildContext context) {
     List<Ingredient> ingredientList = widget.ingredientList;
     ingredientList.removeWhere((element) => element.ingredientName == null);
+
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            widget.drinkName,
-            style: titleTextStyle,
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Text(
+                    widget.drinkName,
+                    style: titleTextStyle,
+                  ),
+                ),
+                IconButton(
+                  iconSize: 30,
+                  icon: const Icon(Icons.favorite_border_rounded),
+                  onPressed: widget.onPressed,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,
           ),
-          /*SizedBox(
-              height: MediaQuery.of(context).size.height / 3,
-              width: MediaQuery.of(context).size.height * 0.75,
-              child: FittedBox(child: Image.network(widget.drinkThumb))),
-          Text(widget.category),
-          Text(widget.glass), */
           Row(
             children: [
               Padding(
@@ -73,17 +90,27 @@ class _CocktailDetailState extends State<CocktailDetail> {
                   ),
                 );
               })),
-          Text(
-            "Instructions",
-            style: titleTextStyle,
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, right: 15),
+                child: Text(
+                  "Instructions",
+                  style: titleTextStyle,
+                ),
+              ),
+            ],
           ),
           const SizedBox(
             height: 10,
           ),
-          Text(
-            widget.instructions,
-            textAlign: TextAlign.justify,
-            style: textStyle,
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15),
+            child: Text(
+              widget.instructions,
+              textAlign: TextAlign.justify,
+              style: textStyle,
+            ),
           ),
           const SizedBox(
             height: 60,
