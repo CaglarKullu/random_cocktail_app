@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:random_cocktail_app/consts/text_style.dart';
+import 'package:random_cocktail_app/data/ad_state.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 
 class CocktailDetail extends ConsumerStatefulWidget {
@@ -31,6 +33,23 @@ class CocktailDetail extends ConsumerStatefulWidget {
 
 class _CocktailDetailState extends ConsumerState<CocktailDetail> {
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final addState = ref.watch(adStateProvider);
+    addState.initialization?.then((status) {
+      setState(() {
+        banner = BannerAd(
+            size: AdSize.banner,
+            adUnitId: addState.bannerAdUnitID,
+            listener: addState.adListener,
+            request: const AdRequest())
+          ..load();
+      });
+    });
+  }
+
+  late BannerAd banner;
+  @override
   Widget build(BuildContext context) {
     List<Ingredient> ingredientList = widget.ingredientList;
     ingredientList.removeWhere((element) => element.ingredientName == null);
@@ -60,6 +79,15 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
               ],
             ),
           ),
+          if (banner == null)
+            const SizedBox(
+              height: 60,
+            )
+          else
+            SizedBox(
+              height: 60,
+              child: AdWidget(ad: banner),
+            ),
           const SizedBox(
             height: 10,
           ),
