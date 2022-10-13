@@ -227,7 +227,8 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                   );
                 }),
                 error: (e, stack) => Text('$e'),
-                loading: () => const CircularProgressIndicator());
+                loading: () =>
+                    const Center(child: CircularProgressIndicator()));
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

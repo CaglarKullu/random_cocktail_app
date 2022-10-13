@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -36,6 +38,7 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final addState = ref.watch(adStateProvider);
+
     addState.initialization?.then((status) {
       setState(() {
         banner = BannerAd(
@@ -48,7 +51,7 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
     });
   }
 
-  late BannerAd banner;
+  BannerAd? banner;
   @override
   Widget build(BuildContext context) {
     List<Ingredient> ingredientList = widget.ingredientList;
@@ -79,15 +82,6 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
               ],
             ),
           ),
-          if (banner == null)
-            const SizedBox(
-              height: 60,
-            )
-          else
-            SizedBox(
-              height: 60,
-              child: AdWidget(ad: banner),
-            ),
           const SizedBox(
             height: 10,
           ),
@@ -118,6 +112,15 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
                   ),
                 );
               })),
+          if (banner == null)
+            const SizedBox(
+              height: 60,
+            )
+          else
+            SizedBox(
+              height: 60,
+              child: AdWidget(ad: banner!),
+            ),
           Row(
             children: [
               Padding(
