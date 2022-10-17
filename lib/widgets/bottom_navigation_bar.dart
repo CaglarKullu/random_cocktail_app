@@ -17,7 +17,6 @@ class CustomNavigationBar extends ConsumerStatefulWidget {
 class _CustomNavigationBarState extends ConsumerState<CustomNavigationBar> {
   static List<Widget> pages = [
     const LogedInScreen(title: "Random Cocktail App"),
-    const MyFavorites(),
   ];
   int _selectedIndex = 0;
   void _onItemTapped(int index) {

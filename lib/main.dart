@@ -4,13 +4,15 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:random_cocktail_app/widgets/screens/home_screen.dart';
+import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/logged_in_screen.dart';
+import 'package:random_cocktail_app/widgets/screens/my_favorites.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await MobileAds.instance.initialize();
 
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -22,9 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: backgroundColor,
       ),
-      home: const ProviderScope(
-        child: HomeScreen(),
-      ),
+      home: const HomeScreen(),
     );
   }
 }

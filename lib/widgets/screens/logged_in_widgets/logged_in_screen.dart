@@ -11,6 +11,7 @@ import 'package:random_cocktail_app/models/ingredients.dart';
 import 'package:random_cocktail_app/models/random_cocktail.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/cocktail_detail.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/custom_fab.dart';
+import 'package:random_cocktail_app/widgets/screens/my_favorites.dart';
 
 class LogedInScreen extends ConsumerStatefulWidget {
   const LogedInScreen({
@@ -255,6 +256,13 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                       setState(() {
                         isButtonOneSelected = false;
                         isButtonTwoSelected = true;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyFavorites(
+                                    uid: user?.uid,
+                                  )),
+                        );
                       });
                     });
                   },
