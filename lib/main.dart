@@ -4,8 +4,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:random_cocktail_app/widgets/screens/home_screen.dart';
-import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/logged_in_screen.dart';
-import 'package:random_cocktail_app/widgets/screens/my_favorites.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -4,7 +4,6 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/logged_in_screen.dart';
-import 'package:random_cocktail_app/widgets/screens/my_favorites.dart';
 
 class CustomNavigationBar extends ConsumerStatefulWidget {
   const CustomNavigationBar({super.key});

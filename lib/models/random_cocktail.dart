@@ -8,12 +8,12 @@ class ListOfRandomCocktail {
 }
 
 class RandomCocktail {
-  String drinkName;
-  String drinkThumb;
-  int idDrink;
-  String instructions;
-  String category;
-  String glass;
+  String? drinkName;
+  String? drinkThumb;
+  String? idDrink;
+  String? instructions;
+  String? category;
+  String? glass;
   String? strIngredient1;
   String? strIngredient2;
   String? strIngredient3;
@@ -87,7 +87,7 @@ class RandomCocktail {
   factory RandomCocktail.fromJson(Map<String, dynamic> json) => RandomCocktail(
         drinkName: json["strDrink"],
         drinkThumb: json["strDrinkThumb"],
-        idDrink: int.parse(json["idDrink"]),
+        idDrink: json["idDrink"],
         instructions: json["strInstructions"],
         category: json["strCategory"],
         glass: json["strGlass"],
@@ -127,6 +127,7 @@ class RandomCocktail {
     data['idDrink'] = idDrink;
     data['strDrink'] = drinkName;
     data['strCategory'] = category;
+    data["strInstructions"] = instructions;
     data['strGlass'] = glass;
     data['strDrinkThumb'] = drinkThumb;
     data['strIngredient1'] = strIngredient1;

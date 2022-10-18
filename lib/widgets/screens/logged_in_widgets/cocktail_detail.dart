@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -9,7 +7,7 @@ import 'package:random_cocktail_app/models/ingredients.dart';
 
 class CocktailDetail extends ConsumerStatefulWidget {
   final String drinkName;
-  final int drinkId;
+  final String drinkId;
   final String drinkThumb;
   final String instructions;
   final String category;
