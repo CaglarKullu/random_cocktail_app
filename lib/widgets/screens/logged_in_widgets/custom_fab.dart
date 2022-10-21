@@ -8,10 +8,12 @@ class CustomFab extends StatelessWidget {
     this.onPressed,
     required this.buttonText,
     required this.isButtonSelected,
+    required this.heroTag,
   });
   final VoidCallback? onPressed;
   final String buttonText;
   final bool isButtonSelected;
+  final String heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class CustomFab extends StatelessWidget {
       width: 187,
       height: 50,
       child: FloatingActionButton(
+        heroTag: heroTag,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         onPressed: onPressed,
         backgroundColor:

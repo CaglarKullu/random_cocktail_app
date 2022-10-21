@@ -18,8 +18,8 @@ class Ingredient {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (ingredientName != null) "name": ingredientName,
-      if (ingredientmeasure != null) "state": ingredientmeasure,
+      if (ingredientName != null) "ingredientName": ingredientName,
+      if (ingredientmeasure != null) "ingredientmeasure": ingredientmeasure,
     };
   }
 }

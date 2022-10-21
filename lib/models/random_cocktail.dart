@@ -122,6 +122,23 @@ class RandomCocktail {
         strMeasure14: json["strMeasure14"],
         strMeasure15: json["strMeasure15"],
       );
+
+  String? get strIngredientName {
+    for (int i = 1; i < 16; i++) {
+      String? strIngredientName = 'strIngredient$i';
+      return strIngredientName;
+    }
+    return null;
+  }
+
+  String? get strIngredientMeasure {
+    for (int i = 1; i < 16; i++) {
+      String? strIngredientMeasure = 'strMeasure$i';
+      return strIngredientMeasure;
+    }
+    return null;
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['idDrink'] = idDrink;
