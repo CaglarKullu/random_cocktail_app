@@ -50,6 +50,7 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     final signIn = ref.read(authProvider);
+    Size size = MediaQuery.of(context).size;
     bool isLongName = false;
     if (user!.displayName!.length > 20) {
       isLongName = true;
@@ -97,7 +98,7 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
           child: Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
               final cocktailList = ref.watch(cocktailListProvider(widget.uid));
-              List<Ingredient> ingredientList = [];
+
               return cocktailList.when(
                   data: (data) {
                     return GridView.builder(
@@ -110,70 +111,162 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
                         ),
                         itemCount: data.length,
                         itemBuilder: (BuildContext context, int index) {
-                          ingredientList.add(
-                            Ingredient(
-                              ingredientName: data[index].strIngredientName,
-                              ingredientmeasure:
-                                  data[index].strIngredientMeasure,
-                            ),
-                          );
+                          var info = data[index];
 
                           return InkWell(
                             onTap: () => Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FavoriteCocktail(
-                                        drinkId: data[index].idDrink!,
-                                        ingredientList: ingredientList,
-                                        drinkName: data[index].drinkName!,
-                                        drinkThumb: data[index].drinkThumb!,
-                                        instructions: data[index].instructions!,
-                                        category: data[index].category!,
-                                        glass: data[index].glass!))),
+                                        drinkId: info.idDrink!,
+                                        ingredientList: [
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient1,
+                                              ingredientmeasure:
+                                                  info.strMeasure1),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient2,
+                                              ingredientmeasure:
+                                                  info.strMeasure2),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient3,
+                                              ingredientmeasure:
+                                                  info.strMeasure3),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient4,
+                                              ingredientmeasure:
+                                                  info.strMeasure4),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient5,
+                                              ingredientmeasure:
+                                                  info.strMeasure5),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient6,
+                                              ingredientmeasure:
+                                                  info.strMeasure6),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient7,
+                                              ingredientmeasure:
+                                                  info.strMeasure7),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient8,
+                                              ingredientmeasure:
+                                                  info.strMeasure8),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient9,
+                                              ingredientmeasure:
+                                                  info.strMeasure9),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient10,
+                                              ingredientmeasure:
+                                                  info.strMeasure10),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient11,
+                                              ingredientmeasure:
+                                                  info.strMeasure11),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient12,
+                                              ingredientmeasure:
+                                                  info.strMeasure12),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient13,
+                                              ingredientmeasure:
+                                                  info.strMeasure13),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient14,
+                                              ingredientmeasure:
+                                                  info.strMeasure14),
+                                          Ingredient(
+                                              ingredientName:
+                                                  info.strIngredient15,
+                                              ingredientmeasure:
+                                                  info.strMeasure15),
+                                        ],
+                                        drinkName: info.drinkName!,
+                                        drinkThumb: info.drinkThumb!,
+                                        instructions: info.instructions!,
+                                        category: info.category!,
+                                        glass: info.glass!))),
                             child: Card(
                               color: Colors.white24,
                               child: Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                       fit: BoxFit.fill,
-                                      image: NetworkImage(
-                                          data[index].drinkThumb!)),
+                                      image: NetworkImage(info.drinkThumb!)),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: BackdropFilter(
-                                        filter: ImageFilter.blur(
-                                            sigmaX: 10.0, sigmaY: 10.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  width: 2,
-                                                  color: Colors.white30),
-                                              gradient: const LinearGradient(
-                                                colors: [
-                                                  Colors.white60,
-                                                  Colors.white10
-                                                ],
-                                                begin: Alignment.topLeft,
-                                                end: Alignment.bottomCenter,
-                                              )),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              data[index].drinkName!,
-                                              style: selectedButtonTextStyle,
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topRight,
+                                      child: IconButton(
+                                        iconSize: 30,
+                                        icon: const Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                        ),
+                                        onPressed: (() {
+                                          unLikeAlert(
+                                              size, user, info.drinkName);
+                                        }),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: BackdropFilter(
+                                            filter: ImageFilter.blur(
+                                                sigmaX: 10.0, sigmaY: 10.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                      width: 2,
+                                                      color: Colors.white30),
+                                                  gradient:
+                                                      const LinearGradient(
+                                                    colors: [
+                                                      Colors.white60,
+                                                      Colors.white10
+                                                    ],
+                                                    begin: Alignment.topLeft,
+                                                    end: Alignment.bottomCenter,
+                                                  )),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  data[index].drinkName!,
+                                                  style:
+                                                      selectedButtonTextStyle,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -234,5 +327,42 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
         ),
       ),
     ));
+  }
+
+  void unLikeAlert(Size size, User user, String? drinkName) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              title: Wrap(children: [Text("Unlike $drinkName?")]),
+              content: SizedBox(
+                width: size.width / 3,
+                height: size.height / 5,
+                child: Center(
+                    child: Wrap(children: const [
+                  Text(
+                      "If you unlike your drink, you may not be able to see it again. Do you want to continue?"),
+                ])),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(
+                      "Cancel",
+                      style: cancelButtonTextStyle,
+                    )),
+                TextButton(
+                    onPressed: () {
+                      ref.read(db).value?.removeFromFavorite(drinkName!);
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Unlike",
+                      style: unselectedButtonTextStyle,
+                    )),
+              ],
+            ));
   }
 }

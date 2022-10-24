@@ -72,9 +72,12 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
                     style: titleTextStyle,
                   ),
                 ),
+                // like button
                 IconButton(
                   iconSize: 30,
-                  icon: const Icon(Icons.favorite_border_rounded),
+                  icon: const Icon(
+                    Icons.favorite_outline_rounded,
+                  ),
                   onPressed: widget.onPressed,
                 ),
               ],

@@ -23,3 +23,8 @@ TextStyle unselectedButtonTextStyle = GoogleFonts.roboto(
   color: selectedNavItemColor,
   fontWeight: FontWeight.bold,
 );
+TextStyle cancelButtonTextStyle = GoogleFonts.roboto(
+  fontSize: 15,
+  color: cancelButTextColor,
+  fontWeight: FontWeight.bold,
+);

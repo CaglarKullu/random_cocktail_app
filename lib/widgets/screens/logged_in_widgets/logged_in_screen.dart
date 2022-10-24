@@ -74,7 +74,6 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
               return drink.when(
                   data: ((data) {
                     var info = data.randomCocktail[0];
-
                     return NestedScrollView(
                       controller: controllerOne,
                       headerSliverBuilder:
@@ -119,8 +118,8 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                                       ingredientList: [
                                         Ingredient(
                                             ingredientName: info.strIngredient1,
-                                            ingredientmeasure: data
-                                                .randomCocktail[0].strMeasure1),
+                                            ingredientmeasure:
+                                                info.strMeasure1),
                                         Ingredient(
                                             ingredientName: info.strIngredient2,
                                             ingredientmeasure:
@@ -135,8 +134,8 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                                                 info.strMeasure4),
                                         Ingredient(
                                             ingredientName: info.strIngredient5,
-                                            ingredientmeasure: data
-                                                .randomCocktail[0].strMeasure5),
+                                            ingredientmeasure:
+                                                info.strMeasure5),
                                         Ingredient(
                                             ingredientName: info.strIngredient6,
                                             ingredientmeasure:

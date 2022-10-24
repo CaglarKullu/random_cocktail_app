@@ -21,14 +21,14 @@ class DatabaseService {
     }
   }
 
-  void removeFromFavorite(RandomCocktail cocktail) async {
+  void removeFromFavorite(String cocktailName) async {
     if (user!.uid ==
         FirebaseFirestore.instance.collection("users").doc(user!.uid).id) {
       final docRef = FirebaseFirestore.instance
           .collection("users")
           .doc(user!.uid)
           .collection("myFavorites")
-          .doc("Adam Sunrise")
+          .doc(cocktailName)
           .delete()
           .then(
             (doc) => print("Document deleted"),

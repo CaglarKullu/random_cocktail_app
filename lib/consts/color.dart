@@ -11,3 +11,4 @@ const selectedNavItemColor = Color.fromRGBO(49, 119, 111, 1);
 const supriseButtonColor = Colors.green;
 const iconBackgroundColor = Color.fromRGBO(254, 202, 82, 1);
 const textColor = Color.fromRGBO(40, 42, 43, 1);
+const cancelButTextColor = Colors.deepOrange;
