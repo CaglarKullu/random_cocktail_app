@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_cocktail_app/consts/text_style.dart';
+import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/data/database.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
+import 'package:random_cocktail_app/widgets/screens/log_in_widgets/login_screen.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/custom_fab.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/logged_in_screen.dart';
 import 'package:random_cocktail_app/widgets/screens/my_favorites/my_favorites.dart';
@@ -54,6 +56,7 @@ class _FavoriteCocktailState extends ConsumerState<FavoriteCocktail> {
   Widget build(BuildContext context) {
     List<Ingredient> ingredientList = widget.ingredientList;
     ingredientList.removeWhere((element) => element.ingredientName == null);
+
     final user = FirebaseAuth.instance.currentUser;
     final ScrollController controllerOne = ScrollController();
     Size size = MediaQuery.of(context).size;
@@ -200,15 +203,19 @@ class _FavoriteCocktailState extends ConsumerState<FavoriteCocktail> {
                 onPressed: () {
                   setState(() {
                     setState(() {
-                      isButtonOneSelected = false;
-                      isButtonTwoSelected = true;
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MyFavorites(
-                                  uid: user?.uid,
-                                )),
-                      );
+                      if (user!.isAnonymous) {
+                        toLikeAlert(size);
+                      } else {
+                        isButtonOneSelected = false;
+                        isButtonTwoSelected = true;
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyFavorites(
+                                    uid: user.uid,
+                                  )),
+                        );
+                      }
                     });
                   });
                 },
@@ -218,6 +225,46 @@ class _FavoriteCocktailState extends ConsumerState<FavoriteCocktail> {
         ),
       ),
     ));
+  }
+
+  void toLikeAlert(Size size) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              title: Wrap(children: const [Text("To like")]),
+              content: SizedBox(
+                width: size.width / 3,
+                height: size.height / 5,
+                child: Center(
+                    child: Wrap(children: const [
+                  Text(
+                      "If you want to like your drink, you should be logged in. Do you want to continue?"),
+                ])),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(
+                      "Cancel",
+                      style: cancelButtonTextStyle,
+                    )),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LogInScreen()),
+                      );
+                    },
+                    child: Text(
+                      "Log in",
+                      style: unselectedButtonTextStyle,
+                    )),
+              ],
+            ));
   }
 
   void unLikeAlert(Size size, User? user) {

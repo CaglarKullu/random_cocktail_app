@@ -54,4 +54,6 @@ class DatabaseService {
 
 final db = FutureProvider((ref) => DatabaseService());
 final cocktailListProvider = StreamProvider.family.autoDispose(
-    ((ref, String? userID) => DatabaseService().myCocktailList(userID)));
+    ((ref, String? userID) =>
+        DatabaseService().myCocktailList(ref.watch(userProvider)?.uid)));
+final userProvider = Provider(((ref) => DatabaseService().user));

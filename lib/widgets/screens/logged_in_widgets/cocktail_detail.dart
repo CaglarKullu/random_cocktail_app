@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:random_cocktail_app/consts/text_style.dart';
 import 'package:random_cocktail_app/data/ad_state.dart';
+import 'package:random_cocktail_app/data/database.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 
 class CocktailDetail extends ConsumerStatefulWidget {
@@ -73,12 +74,41 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
                   ),
                 ),
                 // like button
-                IconButton(
-                  iconSize: 30,
-                  icon: const Icon(
-                    Icons.favorite_outline_rounded,
+                Consumer(
+                  builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                    final user = ref.watch(userProvider);
+                    final cocktailList =
+                        ref.watch(cocktailListProvider(user!.uid));
+                    return cocktailList.when(
+                        data: (data) => data.any((element) =>
+                                element.drinkName == widget.drinkName)
+                            ? IconButton(
+                                iconSize: 30,
+                                icon: const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                ),
+                                onPressed: widget.onPressed,
+                              )
+                            : IconButton(
+                                iconSize: 30,
+                                icon: const Icon(
+                                  Icons.favorite_border_outlined,
+                                ),
+                                onPressed: widget.onPressed,
+                              ),
+                        error: (e, stack) => Text('$e'),
+                        loading: () =>
+                            const Center(child: CircularProgressIndicator()));
+                  },
+                  child: IconButton(
+                    iconSize: 30,
+                    icon: const Icon(
+                      Icons.favorite_outline_rounded,
+                    ),
+                    onPressed: widget.onPressed,
                   ),
-                  onPressed: widget.onPressed,
                 ),
               ],
             ),

@@ -1,12 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:random_cocktail_app/consts/text_style.dart';
 
 import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
 import 'package:random_cocktail_app/data/database.dart';
 
 import 'package:random_cocktail_app/models/ingredients.dart';
+import 'package:random_cocktail_app/widgets/screens/log_in_widgets/login_screen.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/cocktail_detail.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/custom_fab.dart';
 import 'package:random_cocktail_app/widgets/screens/my_favorites/my_favorites.dart';
@@ -24,7 +25,6 @@ class LogedInScreen extends ConsumerStatefulWidget {
 }
 
 class _LogedInScreenState extends ConsumerState<LogedInScreen> {
-  final user = FirebaseAuth.instance.currentUser;
   int _counter = 0;
   bool isB52 = false;
   _incrementCounter() {
@@ -49,7 +49,7 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
   @override
   Widget build(BuildContext context) {
     final drink = isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
-
+    final user = ref.watch(userProvider);
     final dbHelp = ref.read(db);
     final ScrollController controllerOne = ScrollController();
     Size size = MediaQuery.of(context).size;
@@ -110,85 +110,98 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                                 thickness: 5,
                                 controller: controllerOne,
                                 child: SingleChildScrollView(
-                                  child: CocktailDetail(
-                                      onPressed: (() {
-                                        dbHelp.whenData(
-                                            (value) => value.addFavorite(info));
-                                      }),
-                                      ingredientList: [
-                                        Ingredient(
-                                            ingredientName: info.strIngredient1,
-                                            ingredientmeasure:
-                                                info.strMeasure1),
-                                        Ingredient(
-                                            ingredientName: info.strIngredient2,
-                                            ingredientmeasure:
-                                                info.strMeasure2),
-                                        Ingredient(
-                                            ingredientName: info.strIngredient3,
-                                            ingredientmeasure:
-                                                info.strMeasure3),
-                                        Ingredient(
-                                            ingredientName: info.strIngredient4,
-                                            ingredientmeasure:
-                                                info.strMeasure4),
-                                        Ingredient(
-                                            ingredientName: info.strIngredient5,
-                                            ingredientmeasure:
-                                                info.strMeasure5),
-                                        Ingredient(
-                                            ingredientName: info.strIngredient6,
-                                            ingredientmeasure:
-                                                info.strMeasure6),
-                                        Ingredient(
-                                            ingredientName: info.strIngredient7,
-                                            ingredientmeasure:
-                                                info.strMeasure7),
-                                        Ingredient(
-                                            ingredientName: info.strIngredient8,
-                                            ingredientmeasure:
-                                                info.strMeasure8),
-                                        Ingredient(
-                                            ingredientName: info.strIngredient9,
-                                            ingredientmeasure:
-                                                info.strMeasure9),
-                                        Ingredient(
-                                            ingredientName:
-                                                info.strIngredient10,
-                                            ingredientmeasure:
-                                                info.strMeasure10),
-                                        Ingredient(
-                                            ingredientName:
-                                                info.strIngredient11,
-                                            ingredientmeasure:
-                                                info.strMeasure11),
-                                        Ingredient(
-                                            ingredientName:
-                                                info.strIngredient12,
-                                            ingredientmeasure:
-                                                info.strMeasure12),
-                                        Ingredient(
-                                            ingredientName:
-                                                info.strIngredient13,
-                                            ingredientmeasure:
-                                                info.strMeasure13),
-                                        Ingredient(
-                                            ingredientName:
-                                                info.strIngredient14,
-                                            ingredientmeasure:
-                                                info.strMeasure14),
-                                        Ingredient(
-                                            ingredientName:
-                                                info.strIngredient15,
-                                            ingredientmeasure:
-                                                info.strMeasure15),
-                                      ],
-                                      drinkId: info.idDrink!,
-                                      drinkName: info.drinkName!,
-                                      drinkThumb: info.drinkThumb!,
-                                      instructions: info.instructions!,
-                                      category: info.category!,
-                                      glass: info.glass!),
+                                  child: Column(
+                                    children: [
+                                      CocktailDetail(
+                                          onPressed: (() {
+                                            dbHelp.whenData((value) =>
+                                                value.addFavorite(info));
+                                          }),
+                                          ingredientList: [
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient1,
+                                                ingredientmeasure:
+                                                    info.strMeasure1),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient2,
+                                                ingredientmeasure:
+                                                    info.strMeasure2),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient3,
+                                                ingredientmeasure:
+                                                    info.strMeasure3),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient4,
+                                                ingredientmeasure:
+                                                    info.strMeasure4),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient5,
+                                                ingredientmeasure:
+                                                    info.strMeasure5),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient6,
+                                                ingredientmeasure:
+                                                    info.strMeasure6),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient7,
+                                                ingredientmeasure:
+                                                    info.strMeasure7),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient8,
+                                                ingredientmeasure:
+                                                    info.strMeasure8),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient9,
+                                                ingredientmeasure:
+                                                    info.strMeasure9),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient10,
+                                                ingredientmeasure:
+                                                    info.strMeasure10),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient11,
+                                                ingredientmeasure:
+                                                    info.strMeasure11),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient12,
+                                                ingredientmeasure:
+                                                    info.strMeasure12),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient13,
+                                                ingredientmeasure:
+                                                    info.strMeasure13),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient14,
+                                                ingredientmeasure:
+                                                    info.strMeasure14),
+                                            Ingredient(
+                                                ingredientName:
+                                                    info.strIngredient15,
+                                                ingredientmeasure:
+                                                    info.strMeasure15),
+                                          ],
+                                          drinkId: info.idDrink!,
+                                          drinkName: info.drinkName!,
+                                          drinkThumb: info.drinkThumb!,
+                                          instructions: info.instructions!,
+                                          category: info.category!,
+                                          glass: info.glass!),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -247,5 +260,45 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
         ),
       ),
     );
+  }
+
+  void toLikeAlert(Size size) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              title: Wrap(children: const [Text("To like")]),
+              content: SizedBox(
+                width: size.width / 3,
+                height: size.height / 5,
+                child: Center(
+                    child: Wrap(children: const [
+                  Text(
+                      "If you want to like your drink, you should be logged in. Do you want to continue?"),
+                ])),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(
+                      "Cancel",
+                      style: cancelButtonTextStyle,
+                    )),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LogInScreen()),
+                      );
+                    },
+                    child: Text(
+                      "Log in",
+                      style: unselectedButtonTextStyle,
+                    )),
+              ],
+            ));
   }
 }
