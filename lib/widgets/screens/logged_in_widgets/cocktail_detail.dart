@@ -14,11 +14,12 @@ class CocktailDetail extends ConsumerStatefulWidget {
   final String category;
   final String glass;
   final List<Ingredient> ingredientList;
-  final VoidCallback? onPressed;
-
+  final VoidCallback? onPressedLiked;
+  final VoidCallback? onPressedUnLiked;
   const CocktailDetail(
       {Key? key,
-      required this.onPressed,
+      required this.onPressedLiked,
+      required this.onPressedUnLiked,
       required this.drinkId,
       required this.ingredientList,
       required this.drinkName,
@@ -89,26 +90,19 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
                                   Icons.favorite,
                                   color: Colors.red,
                                 ),
-                                onPressed: widget.onPressed,
+                                onPressed: widget.onPressedUnLiked,
                               )
                             : IconButton(
                                 iconSize: 30,
                                 icon: const Icon(
                                   Icons.favorite_border_outlined,
                                 ),
-                                onPressed: widget.onPressed,
+                                onPressed: widget.onPressedLiked,
                               ),
                         error: (e, stack) => Text('$e'),
                         loading: () =>
                             const Center(child: CircularProgressIndicator()));
                   },
-                  child: IconButton(
-                    iconSize: 30,
-                    icon: const Icon(
-                      Icons.favorite_outline_rounded,
-                    ),
-                    onPressed: widget.onPressed,
-                  ),
                 ),
               ],
             ),

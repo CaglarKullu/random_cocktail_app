@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_cocktail_app/consts/text_style.dart';
-import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/data/database.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 import 'package:random_cocktail_app/widgets/screens/log_in_widgets/login_screen.dart';
