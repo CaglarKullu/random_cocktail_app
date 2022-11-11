@@ -50,7 +50,7 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
   @override
   Widget build(BuildContext context) {
     final drink = isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
-    final user = ref.watch(userProvider);
+    final user = ref.refresh(userProvider);
     final dbHelp = ref.read(db);
     final ScrollController controllerOne = ScrollController();
     Size size = MediaQuery.of(context).size;
@@ -229,46 +229,49 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomFab(
-                  heroTag: "btn1",
-                  onPressed: () {
-                    setState(() {
-                      isButtonOneSelected = true;
-                      isButtonTwoSelected = false;
-                      _incrementCounter();
-                      _refreshRamdomDrink();
-                    });
-                  },
-                  buttonText: "Surprise me!",
-                  isButtonSelected: isButtonOneSelected,
-                ),
-                CustomFab(
-                    heroTag: "btn2",
+            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomFab(
+                    heroTag: "btn1",
                     onPressed: () {
                       setState(() {
-                        setState(() {
-                          ref.refresh(authProvider);
-                          isButtonOneSelected = false;
-                          isButtonTwoSelected = true;
-                          user!.isAnonymous
-                              ? toLikeAlert(size)
-                              : Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyFavorites(
-                                            uid: user.uid,
-                                          )),
-                                );
-                        });
+                        isButtonOneSelected = true;
+                        isButtonTwoSelected = false;
+                        _incrementCounter();
+                        _refreshRamdomDrink();
                       });
                     },
-                    buttonText: "My Favorites",
-                    isButtonSelected: isButtonTwoSelected),
-              ],
+                    buttonText: "Surprise me!",
+                    isButtonSelected: isButtonOneSelected,
+                  ),
+                  CustomFab(
+                      heroTag: "btn2",
+                      onPressed: () {
+                        setState(() {
+                          setState(() {
+                            ref.refresh(authProvider);
+                            isButtonOneSelected = false;
+                            isButtonTwoSelected = true;
+                            user!.isAnonymous
+                                ? toLikeAlert(size)
+                                : Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyFavorites(
+                                              uid: user.uid,
+                                            )),
+                                  );
+                          });
+                        });
+                      },
+                      buttonText: "My Favorites",
+                      isButtonSelected: isButtonTwoSelected),
+                ],
+              ),
             ),
           ),
         ),

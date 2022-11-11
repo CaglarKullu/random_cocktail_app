@@ -18,7 +18,7 @@ class CustomFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 187,
+      width: 170,
       height: 50,
       child: FloatingActionButton(
         heroTag: heroTag,
