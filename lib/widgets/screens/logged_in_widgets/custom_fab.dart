@@ -17,8 +17,15 @@ class CustomFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double width;
+    if (deviceWidth > 410) {
+      width = 187;
+    } else {
+      width = 170;
+    }
     return SizedBox(
-      width: 170,
+      width: width,
       height: 50,
       child: FloatingActionButton(
         heroTag: heroTag,

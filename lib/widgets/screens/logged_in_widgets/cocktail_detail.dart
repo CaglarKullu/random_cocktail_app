@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:random_cocktail_app/consts/text_style.dart';
 import 'package:random_cocktail_app/data/ad_state.dart';
-import 'package:random_cocktail_app/data/database.dart';
+
+import 'package:random_cocktail_app/data/local_db.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 
 class CocktailDetail extends ConsumerStatefulWidget {
@@ -69,18 +72,20 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Text(
-                    widget.drinkName,
-                    style: titleTextStyle,
+                  child: Wrap(
+                    children: [
+                      Text(
+                        widget.drinkName,
+                        style: titleTextStyle,
+                      ),
+                    ],
                   ),
                 ),
                 // like button
                 Consumer(
                   builder:
                       (BuildContext context, WidgetRef ref, Widget? child) {
-                    final user = ref.watch(userProvider);
-                    final cocktailList =
-                        ref.watch(cocktailListProvider(user!.uid));
+                    final cocktailList = ref.watch(localCocktailListProvider);
                     return cocktailList.when(
                         data: (data) => data.any((element) =>
                                 element.drinkName == widget.drinkName)

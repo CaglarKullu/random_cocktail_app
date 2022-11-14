@@ -8,6 +8,7 @@ import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/consts/text_style.dart';
 import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/data/database.dart';
+import 'package:random_cocktail_app/data/local_db.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 import 'package:random_cocktail_app/widgets/screens/home_screen.dart';
 
@@ -244,8 +245,11 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
                                                     color: Colors.red,
                                                   ),
                                                   onPressed: (() {
-                                                    unLikeAlert(size, user,
-                                                        info.drinkName);
+                                                    unLikeAlert(
+                                                        size,
+                                                        user,
+                                                        info.drinkName,
+                                                        info.idDrink);
                                                   }),
                                                 ),
                                               ),
@@ -373,7 +377,7 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
     ));
   }
 
-  void unLikeAlert(Size size, User user, String? drinkName) {
+  void unLikeAlert(Size size, User user, String? drinkName, String? idDrink) {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -382,8 +386,8 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
               ),
               title: Wrap(children: [Text("Unlike $drinkName?")]),
               content: SizedBox(
-                width: size.width / 3,
-                height: size.height / 5,
+                width: size.width / 4,
+                height: size.height / 10,
                 child: Center(
                     child: Wrap(children: const [
                   Text(
@@ -400,6 +404,7 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
                 TextButton(
                     onPressed: () {
                       ref.read(db).value?.removeFromFavorite(drinkName!);
+                      ref.read(localDBProvider).deleteCocktail(idDrink!);
                       Navigator.pop(context);
                     },
                     child: Text(

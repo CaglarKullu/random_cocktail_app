@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,6 +8,7 @@ import 'package:random_cocktail_app/consts/text_style.dart';
 import 'package:random_cocktail_app/data/api_service/random_cocktail_api.dart';
 import 'package:random_cocktail_app/data/auth.dart';
 import 'package:random_cocktail_app/data/database.dart';
+import 'package:random_cocktail_app/data/local_db.dart';
 
 import 'package:random_cocktail_app/models/ingredients.dart';
 import 'package:random_cocktail_app/widgets/screens/home_screen.dart';
@@ -52,6 +55,7 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
     final drink = isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
     final user = ref.refresh(userProvider);
     final dbHelp = ref.read(db);
+    final localDB = ref.read(localDBProvider);
     final ScrollController controllerOne = ScrollController();
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -115,17 +119,38 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                                     children: [
                                       CocktailDetail(
                                         onPressedLiked: (() {
-                                          user!.isAnonymous
-                                              ? toLikeAlert(size)
-                                              : dbHelp.whenData((value) =>
-                                                  value.addFavorite(info));
+                                          setState(() {
+                                            ref.refresh(
+                                                localCocktailListProvider);
+                                            user!.isAnonymous
+                                                ? toLikeAlert(size)
+                                                : dbHelp.whenData((value) =>
+                                                    value.addFavorite(info));
+                                            user.isAnonymous
+                                                ? null
+                                                : localDB.insertCocktail(info);
+
+                                            ref.refresh(
+                                                localCocktailListProvider);
+                                          });
                                         }),
                                         onPressedUnLiked: (() {
-                                          ref
-                                              .read(db)
-                                              .value
-                                              ?.removeFromFavorite(
-                                                  info.drinkName!);
+                                          setState(() {
+                                            ref.refresh(
+                                                localCocktailListProvider);
+                                            ref
+                                                .read(db)
+                                                .value
+                                                ?.removeFromFavorite(
+                                                    info.drinkName!);
+                                            user!.isAnonymous
+                                                ? null
+                                                : localDB.deleteCocktail(
+                                                    info.idDrink!);
+
+                                            ref.refresh(
+                                                localCocktailListProvider);
+                                          });
                                         }),
                                         ingredientList: [
                                           Ingredient(
@@ -289,8 +314,8 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
               ),
               title: Wrap(children: const [Text("To like")]),
               content: SizedBox(
-                width: size.width / 3,
-                height: size.height / 5,
+                width: size.width / 4,
+                height: size.height / 10,
                 child: Center(
                     child: Wrap(children: const [
                   Text(
