@@ -37,6 +37,12 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
     });
   }
 
+  @override
+  void initState() {
+    ref.refresh(userProvider);
+    super.initState();
+  }
+
   void _refreshRamdomDrink() => setState(() {
         ref.refresh(randomDrink);
         if (_counter == 52) {
@@ -53,7 +59,7 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
   @override
   Widget build(BuildContext context) {
     final drink = isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
-    final user = ref.refresh(userProvider);
+    final user = ref.watch(userProvider);
     final dbHelp = ref.read(db);
     final localDB = ref.read(localDBProvider);
     final ScrollController controllerOne = ScrollController();
@@ -268,6 +274,7 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
                         isButtonTwoSelected = false;
                         _incrementCounter();
                         _refreshRamdomDrink();
+                        scrollUp(controllerOne);
                       });
                     },
                     buttonText: "Surprise me!",
@@ -304,6 +311,11 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
     );
   }
 
+  void scrollUp(ScrollController controllerOne) {
+    final double start = 0;
+    controllerOne.jumpTo(start);
+  }
+
   void toLikeAlert(Size size) {
     ref.refresh(authProvider);
     showDialog(
@@ -312,7 +324,7 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              title: Wrap(children: const [Text("To like")]),
+              title: Wrap(children: const [Text("Like this cocktail")]),
               content: SizedBox(
                 width: size.width / 4,
                 height: size.height / 10,

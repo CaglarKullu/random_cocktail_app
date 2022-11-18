@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_cocktail_app/consts/text_style.dart';
 import 'package:random_cocktail_app/data/database.dart';
+import 'package:random_cocktail_app/data/local_db.dart';
 import 'package:random_cocktail_app/models/ingredients.dart';
 import 'package:random_cocktail_app/widgets/screens/log_in_widgets/login_screen.dart';
 import 'package:random_cocktail_app/widgets/screens/logged_in_widgets/custom_fab.dart';
@@ -56,7 +57,7 @@ class _FavoriteCocktailState extends ConsumerState<FavoriteCocktail> {
     List<Ingredient> ingredientList = widget.ingredientList;
     ingredientList.removeWhere((element) => element.ingredientName == null);
 
-    final user = FirebaseAuth.instance.currentUser;
+    final user = ref.refresh(userProvider);
     final ScrollController controllerOne = ScrollController();
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -233,7 +234,7 @@ class _FavoriteCocktailState extends ConsumerState<FavoriteCocktail> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              title: Wrap(children: const [Text("To like")]),
+              title: Wrap(children: const [Text("Like this cocktail")]),
               content: SizedBox(
                 width: size.width / 3,
                 height: size.height / 5,
@@ -293,6 +294,7 @@ class _FavoriteCocktailState extends ConsumerState<FavoriteCocktail> {
                 TextButton(
                     onPressed: () {
                       ref.read(db).value?.removeFromFavorite(widget.drinkName);
+                      ref.read(localDBProvider).deleteCocktail(widget.drinkId);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
