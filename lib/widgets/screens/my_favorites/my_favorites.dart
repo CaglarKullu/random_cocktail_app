@@ -51,7 +51,7 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = ref.refresh(userProvider);
     final signIn = ref.read(authProvider);
     Size size = MediaQuery.of(context).size;
     bool isLongName = false;
@@ -73,8 +73,9 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
                 return TextButton(
                     onPressed: () {
                       user.isAnonymous
-                          ? signIn.anonLogout()
+                          ? null
                           : signIn.googleLogout();
+                      ref.refresh(userProvider);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

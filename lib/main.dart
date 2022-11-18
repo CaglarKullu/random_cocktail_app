@@ -11,7 +11,6 @@ Future main() async {
   await Firebase.initializeApp();
   await MobileAds.instance.initialize();
   FlutterNativeSplash.remove();
-
   runApp(const ProviderScope(child: MyApp()));
 }
 
