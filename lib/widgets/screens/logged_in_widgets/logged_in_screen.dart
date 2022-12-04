@@ -60,6 +60,7 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
   Widget build(BuildContext context) {
     final drink = isB52 ? ref.watch(fetchDrinkB52) : ref.watch(randomDrink);
     final user = ref.watch(userProvider);
+
     final dbHelp = ref.read(db);
     final localDB = ref.read(localDBProvider);
     final ScrollController controllerOne = ScrollController();

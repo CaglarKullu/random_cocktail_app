@@ -65,52 +65,55 @@ class _CocktailDetailState extends ConsumerState<CocktailDetail> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Wrap(
-                    children: [
-                      Text(
-                        widget.drinkName,
-                        style: titleTextStyle,
-                      ),
-                    ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      widget.drinkName,
+                      style: titleTextStyle,
+                      softWrap: true,
+                      maxLines: 2,
+                      overflow: TextOverflow.clip,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-                // like button
-                Consumer(
-                  builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
-                    final cocktailList = ref.watch(localCocktailListProvider);
-                    return cocktailList.when(
-                        data: (data) => data.any((element) =>
-                                element.drinkName == widget.drinkName)
-                            ? IconButton(
-                                iconSize: 30,
-                                icon: const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                ),
-                                onPressed: widget.onPressedUnLiked,
-                              )
-                            : IconButton(
-                                iconSize: 30,
-                                icon: const Icon(
-                                  Icons.favorite_border_outlined,
-                                ),
-                                onPressed: widget.onPressedLiked,
+              ),
+              // like button
+              Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  final cocktailList = ref.watch(localCocktailListProvider);
+                  return cocktailList.when(
+                      data: (data) => data.any((element) =>
+                              element.drinkName == widget.drinkName)
+                          ? IconButton(
+                              iconSize: 30,
+                              icon: const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
                               ),
-                        error: (e, stack) => Text('$e'),
-                        loading: () =>
-                            const Center(child: CircularProgressIndicator()));
-                  },
-                ),
-              ],
-            ),
+                              onPressed: widget.onPressedUnLiked,
+                            )
+                          : IconButton(
+                              iconSize: 30,
+                              icon: const Icon(
+                                Icons.favorite_border_outlined,
+                              ),
+                              onPressed: widget.onPressedLiked,
+                            ),
+                      error: (e, stack) => Text('$e'),
+                      loading: () =>
+                          const Center(child: CircularProgressIndicator()));
+                },
+              ),
+            ],
           ),
           const SizedBox(
             height: 10,
