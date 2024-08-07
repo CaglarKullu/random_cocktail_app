@@ -361,8 +361,8 @@ class _MyFavoritesState extends ConsumerState<MyFavorites> {
               content: SizedBox(
                 width: size.width / 3,
                 height: size.height / 5,
-                child: Center(
-                    child: Wrap(children: const [
+                child: const Center(
+                    child: Wrap(children: [
                   Text(
                       "If you unlike your drink, you may not be able to see it again. Do you want to continue?"),
                 ])),

@@ -63,8 +63,8 @@ class _CustomNavigationBarState extends ConsumerState<CustomNavigationBar> {
                       ),
                     ],
                   ),
-                  child: Column(
-                    children: const [
+                  child: const Column(
+                    children: [
                       Icon(
                         FontAwesome5.cocktail,
                       ),

@@ -233,12 +233,12 @@ class _FavoriteCocktailState extends ConsumerState<FavoriteCocktail> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              title: Wrap(children: const [Text("To like")]),
+              title: const Wrap(children: [Text("To like")]),
               content: SizedBox(
                 width: size.width / 3,
                 height: size.height / 5,
-                child: Center(
-                    child: Wrap(children: const [
+                child: const Center(
+                    child: Wrap(children: [
                   Text(
                       "If you want to like your drink, you should be logged in. Do you want to continue?"),
                 ])),
@@ -277,8 +277,8 @@ class _FavoriteCocktailState extends ConsumerState<FavoriteCocktail> {
               content: SizedBox(
                 width: size.width / 3,
                 height: size.height / 5,
-                child: Center(
-                    child: Wrap(children: const [
+                child: const Center(
+                    child: Wrap(children: [
                   Text(
                       "If you unlike your drink, you may not be able to see it again. Do you want to continue?"),
                 ])),

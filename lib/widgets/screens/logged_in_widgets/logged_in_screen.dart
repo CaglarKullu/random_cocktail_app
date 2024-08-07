@@ -284,12 +284,12 @@ class _LogedInScreenState extends ConsumerState<LogedInScreen> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              title: Wrap(children: const [Text("To like")]),
+              title: const Wrap(children: [Text("To like")]),
               content: SizedBox(
                 width: size.width / 3,
                 height: size.height / 5,
-                child: Center(
-                    child: Wrap(children: const [
+                child: const Center(
+                    child: Wrap(children: [
                   Text(
                       "If you want to like your drink or to see your favorite's page, you should be logged in. Do you want to continue?"),
                 ])),
