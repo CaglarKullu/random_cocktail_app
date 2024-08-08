@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "872188609739",
+    "project_id": "random-cocktail-app",
+    "storage_bucket": "random-cocktail-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872188609739:android:56b8eb824948ed0a02474e",
+        "android_client_info": {
+          "package_name": "com.ctksoftware.surpriseme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872188609739-lp205vm3nc030pq2k6kisfjo1s4p9pau.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctksoftware.surpriseme",
+            "certificate_hash": "e3666394b847f5a907f1e5687104e4f354244432"
+          }
+        },
+        {
+          "client_id": "872188609739-nnoivcsr1g63pjblhhfh2c64a08sd30b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctksoftware.surpriseme",
+            "certificate_hash": "b3806eee412ac654825ed4f12e0780cc3ae7e9b8"
+          }
+        },
+        {
+          "client_id": "872188609739-734n9v5m2u6l89ulhka6fmvm64qtracg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACzk-K_BNstD0jc74AJR_XNKe0R_8pqjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872188609739-734n9v5m2u6l89ulhka6fmvm64qtracg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

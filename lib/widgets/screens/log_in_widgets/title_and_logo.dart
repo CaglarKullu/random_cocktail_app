@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart' as fonts;
 import 'package:random_cocktail_app/consts/color.dart';
 
 Widget buildTitleAndLogo(Size deviceSize) {
@@ -12,7 +12,7 @@ Widget buildTitleAndLogo(Size deviceSize) {
         children: [
           Text(
             "Surprise me",
-            style: GoogleFonts.roboto(
+            style: fonts.GoogleFonts.roboto(
               fontSize: 25,
               color: textColor,
               fontWeight: FontWeight.bold,

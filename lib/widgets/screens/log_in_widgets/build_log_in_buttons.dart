@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart' as fonts;
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:random_cocktail_app/data/auth.dart';
 
@@ -56,7 +56,7 @@ class _BuildLogInButtonsState extends State<BuildLogInButtons> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text("Or",
-                          style: GoogleFonts.roboto(
+                          style: fonts.GoogleFonts.roboto(
                             color: Colors.grey,
                             fontSize: 20,
                           )),
