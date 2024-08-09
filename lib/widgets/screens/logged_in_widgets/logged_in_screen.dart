@@ -15,9 +15,9 @@ import 'package:random_cocktail_app/widgets/screens/my_favorites/my_favorites.da
 
 class LogedInScreen extends ConsumerStatefulWidget {
   const LogedInScreen({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String title;
 

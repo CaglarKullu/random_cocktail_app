@@ -3,33 +3,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:google_fonts/google_fonts.dart' as fonts;
 import 'package:random_cocktail_app/consts/color.dart';
-import 'package:random_cocktail_app/data/auth.dart';
+
+import '../../../view_models/Auth_View_Model.dart';
 
 // ignore: must_be_immutable
-class BuildLogInButtons extends StatefulWidget {
+class BuildLogInButtons extends ConsumerWidget {
   Size deviceSize;
   BuildLogInButtons({required this.deviceSize, super.key});
 
   @override
-  State<BuildLogInButtons> createState() => _BuildLogInButtonsState();
-}
-
-class _BuildLogInButtonsState extends State<BuildLogInButtons> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Positioned(
-        top: widget.deviceSize.height / 2,
+        top: deviceSize.height / 2,
         child: SizedBox(
-            width: widget.deviceSize.width,
+            width: deviceSize.width,
             child: Consumer(
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                final signIn = ref.watch(authProvider);
                 return Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: SizedBox(
-                        width: widget.deviceSize.width,
+                        width: deviceSize.width,
                         height: 45,
                         child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
@@ -42,14 +37,14 @@ class _BuildLogInButtonsState extends State<BuildLogInButtons> {
                               ),
                               foregroundColor: signUpButTextColor,
                               backgroundColor: backgroundColor),
-                          onPressed: (() => setState(() {
-                                signIn.googleLogIn();
-                              })),
                           label: const Text("Sign up with Google",
                               style: TextStyle(color: selectedNavItemColor)),
                           icon: const Icon(
                             FontAwesome5.google,
                           ),
+                          onPressed: () => ref
+                              .read(authViewModelProvider.notifier)
+                              .signInWithGoogle(),
                         ),
                       ),
                     ),
@@ -64,7 +59,7 @@ class _BuildLogInButtonsState extends State<BuildLogInButtons> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: SizedBox(
-                        width: widget.deviceSize.width,
+                        width: deviceSize.width,
                         height: 45,
                         child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
@@ -77,9 +72,9 @@ class _BuildLogInButtonsState extends State<BuildLogInButtons> {
                                 ),
                                 foregroundColor: signUpButTextColor,
                                 backgroundColor: backgroundColor),
-                            onPressed: (() => setState(() {
-                                  signIn.signInAnon();
-                                })),
+                            onPressed: () => ref
+                                .read(authViewModelProvider.notifier)
+                                .anonSignIn(),
                             label: const Text(
                               " Continue as Anonymous",
                               style: TextStyle(color: selectedNavItemColor),

@@ -3,7 +3,7 @@ import 'package:random_cocktail_app/widgets/screens/log_in_widgets/build_log_in_
 import 'package:random_cocktail_app/widgets/screens/log_in_widgets/title_and_logo.dart';
 
 class LogInScreen extends StatefulWidget {
-  const LogInScreen({Key? key}) : super(key: key);
+  const LogInScreen({super.key});
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
