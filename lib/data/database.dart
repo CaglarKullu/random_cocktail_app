@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,12 +33,25 @@ class DatabaseService {
           .doc(cocktailName)
           .delete()
           .then(
-            (doc) => print("Document deleted"),
-            onError: (e) => print("Error updating document $e"),
+            (doc) => log("Document deleted"),
+            onError: (e) => log("Error updating document $e"),
           );
       await docRef;
     } else {
       null;
+    }
+
+    // delete user from firebase
+    void deleteUser() {
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(user!.uid)
+          .delete()
+          .then(
+            (doc) => log("Document deleted"),
+            onError: (e) => log("Error updating document $e"),
+          )
+          .onError((error, stackTrace) => log(error.toString()));
     }
   }
 
