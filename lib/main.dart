@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:random_cocktail_app/consts/color.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:random_cocktail_app/firebase_options.dart';
 import 'package:random_cocktail_app/widgets/screens/home_screen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await MobileAds.instance.initialize();
 
   runApp(const ProviderScope(child: MyApp()));
